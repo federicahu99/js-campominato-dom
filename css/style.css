@@ -44,8 +44,7 @@ body {
     color: white;
     border-color: orange;
     margin-bottom: 15px;
-    display: block;
-    margin:  10px auto;
+  
     font-size: 18px ;
 }
 
@@ -63,4 +62,5 @@ body {
 
 .clicked  {
     background-color: dodgerblue;
+    cursor:not-allowed;
 }
