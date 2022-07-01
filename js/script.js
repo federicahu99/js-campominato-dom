@@ -30,7 +30,7 @@ Generiamoli e stampiamo in console per essere certi che siano corretti.
 Quando l'utente clicca su una cella, verifichiamo se ha calpestato una bomba, 
 controllando se il numero di cella è presente nell'array di bombe. Se si, 
 la cella diventa rossa (raccogliamo il punteggio e e scriviamo in console che 
-    la partita termina) altrimenti diventa azzurra e dobbiamo incrementare il punteggio.
+la partita termina) altrimenti diventa azzurra e dobbiamo incrementare il punteggio.
 
 # MILESTONE 4
 Quando l'utente clicca su una cella, e questa non è una bomba, dobbiamo controllare 
@@ -59,15 +59,15 @@ console.table(score)
 const getRandomNumber =  (number)  => {
     let i= 1;
     while ( i <= number ){
-        let randomic= Math.floor(Math.random()* 100 + 1 -1) +1; 
         i++;
-        if ( randomic === randomic) {
-            return
+        let randomic= Math.floor(Math.random()* 100 -1) +1; 
+        if ( randomic === randomic++) {
+            let randomic= Math.floor(Math.random()* 100 -1) +1;
         }
         console.log(randomic)
 
     }
-    return 
+    return
 }
 
 // creazione griglie
@@ -113,7 +113,10 @@ const createGrid = (row= 10, col=10 ) => {
 btn.addEventListener('click',() => {       
     // creo griglie
     grid = createGrid();
-    randomizer = getRandomNumber(16);
 })
 
+//prendo numeri random 
+let bombNumber = getRandomNumber(16);
+console.log(bombNumber)
+bomb.push(bombNumber)
 
