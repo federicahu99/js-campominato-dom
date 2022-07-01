@@ -64,3 +64,7 @@ body {
     background-color: dodgerblue;
     cursor:not-allowed;
 }
+
+.red {
+    background-color: crimson;
+}

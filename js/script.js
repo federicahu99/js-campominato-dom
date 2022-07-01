@@ -48,65 +48,64 @@ punteggio raggiunto ed il messaggio adeguato in caso di vittoria o sconfitta.
 //prendo i miei elementi
 const btn = document.getElementById('start-game'); 
 let game = document.getElementById('game');
+
+// creo array
 const bomb= [];
 console.table(bomb)
 const score = [];
 console.table(score)
 
 // functions
-
-// randomizzatore
-const getRandomNumber =  (number)  => {
-    let i= 1;
-    while ( i <= number ){
-        i++;
+// randomizzatore dell bombe
+function getArrayBombs () {
+    while ( bomb.length < 16 ){
         let randomic= Math.floor(Math.random()* 100 -1) +1; 
-        if ( randomic === randomic++) {
-            let randomic= Math.floor(Math.random()* 100 -1) +1;
-        }
-        console.log(randomic)
-
+        if (!bomb.includes(randomic)) {  //controllo se la bomba non è presente nell'array
+            bomb.push(randomic);         // se NON è nella lista allora pusha.
+        } 
     }
-    return
 }
 
+function createGrid (row=10, col=10 ) {
+    
 // creazione griglie
-const createGrid = (row= 10, col=10 ) => {
+    //prendo numeri random per le bombe
+    getArrayBombs();
+    
+    //calcolo numero di celle che mi servono 
     const totalCell= row * col;
     let number= 1;
-
+    
     // ripeto per il risultato di totalCell volte, 1 per ogni griglia del gioco
     for( i = 1; i <= totalCell; i++) {
-
+        
+        
         // creo il div all'interno del html e gli aggiungo la classe
         const cell = document.createElement('div');
         cell.classList.add('cell')
-    
+        
         // porto nel dom
         game.appendChild(cell)
         cell.innerText = parseInt(number);
-
+        
         //incremento
         number++;
-
+        
         //azione per colorare di blu cliccano sulla cella 
         cell.addEventListener('click', (event) => {
             let cellNumber = event.target.innerText;
-            console.log(cellNumber);
-            score.push(cellNumber);
-
-            //blocco celle già premute
-            if (event.target.classList.contains('clicked')){
-                return
-            }
-            //aggiungo classe ai selezionati    
-            event.target.classList.add('clicked')
-            console.log(event.target.innerText)
+            
+            // //blocco celle già premute
+            // if (event.target.classList.contains('clicked')){
+                
+                // }
+                //aggiungo classe ai selezionati    
+                event.target.classList.add('clicked')
+                score.push(event.target.innerText)      //metto in array score
             });
-        
+            
    }
 }
-
 
 
 //azione al click del bottone 
@@ -115,8 +114,12 @@ btn.addEventListener('click',() => {
     grid = createGrid();
 })
 
-//prendo numeri random 
-let bombNumber = getRandomNumber(16);
-console.log(bombNumber)
-bomb.push(bombNumber)
+// conto quanti numero ho premuto finchè non premo una bomba o arrivo a 84
+
+ if (score.includes(bomb)) {
+     score.classList.add('red')
+     console.log('Hai perso!');
+ } else if (score.lenght == 84) {
+     console.log('Hai vinto!');
+ }
 
