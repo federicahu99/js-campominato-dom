@@ -50,16 +50,16 @@ const btn = document.getElementById('start-game');
 let game = document.getElementById('game');
 
 // creo array
-const bomb= [];
-console.table(bomb)
-const score = [];
-console.table(score)
+let bomb= [];
+
+let score = [];
+
 
 // functions
 // randomizzatore dell bombe
 function getArrayBombs () {
     while ( bomb.length < 16 ){
-        let randomic= Math.floor(Math.random()* 100 -1) +1; 
+        let randomic= Math.floor(Math.random()* 100 +1 -1) +1; 
         if (!bomb.includes(randomic)) {  //controllo se la bomba non è presente nell'array
             bomb.push(randomic);         // se NON è nella lista allora pusha.
         } 
@@ -67,10 +67,16 @@ function getArrayBombs () {
 }
 
 function createGrid (row=10, col=10 ) {
-    
+    //vuoto
+    game.innerHTML= ' ';
+
+    bomb= [];
+    score = [];
 // creazione griglie
     //prendo numeri random per le bombe
     getArrayBombs();
+    console.table(bomb)
+    console.table(score)
     
     //calcolo numero di celle che mi servono 
     const totalCell= row * col;
@@ -93,17 +99,27 @@ function createGrid (row=10, col=10 ) {
         
         //azione per colorare di blu cliccano sulla cella 
         cell.addEventListener('click', (event) => {
-            let cellNumber = event.target.innerText;
-            
+
             // //blocco celle già premute
-            // if (event.target.classList.contains('clicked')){
-                
-                // }
-                //aggiungo classe ai selezionati    
-                event.target.classList.add('clicked')
-                score.push(event.target.innerText)      //metto in array score
-            });
+            if (event.target.classList.contains('clicked')){
+                alert('Hai già premuto la casella');
+            } else {
+            //aggiungo classe ai selezionati    
+            event.target.classList.add('clicked')
+            score.push(parseInt(event.target.innerText))     //metto in array score
+            }  
+            // conto quanti numero ho premuto finchè non premo una bomba o arrivo a 84
+            if (bomb.includes(parseInt(event.target.innerText))) {
+                cell.classList.add('red')
+                console.log('Hai perso!');
+                console.log(`Il tuo punteggio finale: ${score.length}`)
+            } else if (score.lenght == 84) {
+                console.log('Hai vinto!');
+            }   
+        });
             
+            
+
    }
 }
 
@@ -114,12 +130,4 @@ btn.addEventListener('click',() => {
     grid = createGrid();
 })
 
-// conto quanti numero ho premuto finchè non premo una bomba o arrivo a 84
-
- if (score.includes(bomb)) {
-     score.classList.add('red')
-     console.log('Hai perso!');
- } else if (score.lenght == 84) {
-     console.log('Hai vinto!');
- }
 
